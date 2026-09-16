@@ -1,0 +1,181 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #080810;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 620px;
+  overflow: hidden;
+  background:
+    linear-gradient(to bottom, rgba(4,4,13,.10), rgba(5,5,12,.34)),
+    url("fondo-limpio.jpg") center center / cover no-repeat;
+}
+
+.title {
+  position: absolute;
+  top: 1.4%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(36px, 8vw, 76px);
+  font-weight: 700;
+  color: #e8d522;
+  text-shadow: 0 0 8px #fff500, 0 0 25px rgba(255,225,0,.72);
+  z-index: 5;
+  letter-spacing: -2px;
+}
+
+.title span { font-size: .72em; }
+
+.player {
+  position: absolute;
+  z-index: 8;
+  top: 10.8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(620px, 78%);
+  min-height: 108px;
+  padding: 15px 22px 14px 18px;
+  border: 1px solid rgba(235,210,30,.32);
+  border-radius: 30px;
+  background: rgba(52, 28, 29, .78);
+  box-shadow: 0 0 18px rgba(218, 184, 0, .12);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.play {
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  border: 0;
+  border-radius: 50%;
+  background: #f4cf0c;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 14px rgba(245,210,20,.25);
+}
+
+.player-info { flex: 1; min-width: 0; }
+
+.song {
+  color: #ffd91c;
+  font-size: clamp(16px, 3vw, 24px);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.progress-wrap {
+  width: 100%;
+  height: 5px;
+  background: rgba(210,205,205,.34);
+  border-radius: 20px;
+  overflow: visible;
+}
+
+.progress {
+  position: relative;
+  height: 100%;
+  width: 21.875%;
+  background: #f2c91a;
+  border-radius: 20px;
+  transition: width .3s linear;
+}
+
+.progress::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #f2c91a;
+  box-shadow: 0 0 7px rgba(242,201,26,.6);
+}
+
+.times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: #f5d41b;
+  font-size: 14px;
+}
+
+.bouquet {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 23%;
+  width: min(670px, 96vw);
+  transform: translateX(-50%);
+  transform-origin: 50% 90%;
+  animation: wind 4.8s ease-in-out infinite;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.28));
+}
+
+.bouquet img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bouquet.paused { animation-play-state: paused; }
+
+@keyframes wind {
+  0%, 100% { transform: translateX(-50%) rotate(0deg) skewX(0deg); }
+  25%      { transform: translateX(calc(-50% + 5px)) rotate(1.25deg) skewX(.5deg); }
+  50%      { transform: translateX(calc(-50% + 1px)) rotate(-.9deg) skewX(-.35deg); }
+  75%      { transform: translateX(calc(-50% - 6px)) rotate(-1.4deg) skewX(-.55deg); }
+}
+
+.stars::before,
+.stars::after {
+  content: "✦   ·    ✦       ·      ✧    ·       ✦";
+  position: absolute;
+  z-index: 2;
+  color: #e7cf14;
+  opacity: .75;
+  font-size: 17px;
+  letter-spacing: 16px;
+  animation: twinkle 2.7s ease-in-out infinite alternate;
+}
+
+.stars::before { top: 19%; left: 4%; }
+.stars::after { bottom: 16%; right: 1%; animation-delay: -1.2s; }
+
+@keyframes twinkle {
+  from { opacity: .2; transform: scale(.85); }
+  to   { opacity: .85; transform: scale(1.08); }
+}
+
+@media (max-width: 600px) {
+  .player {
+    width: 82%;
+    min-height: 92px;
+    padding: 12px 14px;
+    border-radius: 24px;
+  }
+  .play {
+    flex-basis: 50px;
+    width: 50px;
+    height: 50px;
+  }
+  .bouquet {
+    top: 27%;
+    width: 104vw;
+  }
+}
